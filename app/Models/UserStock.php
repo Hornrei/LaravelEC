@@ -25,33 +25,41 @@ class UserStock extends Model
         return $this->belongsTo('\App\Models\Stock','stockId');
     }
 
-    public function addMyCart($stockId)
+    public function addMyCart($stockId, $quantity)
     {
-        $userId = Auth::id(); 
-        $cartAddInfo = $this->firstOrCreate(['stockId' => $stockId,'userId' => $userId]);
+        $user = Auth::user();
+        $cart = $this->where('userId', $user->id)->where('stockId', $stockId)->first();
 
-        if($cartAddInfo->wasRecentlyCreated){
-            $message = 'カートに追加しました';
+        if ($cart) {
+            // 既存のカートにアイテムがある場合、個数を加算
+            $cart->quantity += $quantity;
+            $cart->save();
+            return 'カートのアイテムの個数を更新しました！';
+        } else {
+            // 新しいアイテムをカートに追加
+            $this->create([
+                'userId' => $user->id,
+                'stockId' => $stockId,
+                'quantity' => $quantity,
+            ]);
+            return 'カートにアイテムを追加しました！';
         }
-        else{
-            $message = 'カートに登録済みです';
-        }
-        
-        return $message;
     }
+
 
     public function deleteMyCartStock($stockId)
     {
         $userId = Auth::id(); 
-        $deleteStockCount = $this->where('userId', $userId)->where('stockId',$stockId)->delete();
+        $deleteStockCount = $this->where('userId', $userId)->where('stockId', $stockId)->delete();
         
-        if($deleteStockCount > 0){
+        if ($deleteStockCount > 0) {
             $message = 'カートから一つの商品を削除しました';
-        }else{
+        } else {
             $message = '削除に失敗しました';
         }
         return $message;
     }
+
 
 }
 

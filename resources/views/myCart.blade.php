@@ -10,21 +10,38 @@
 
             <!-- カート内商品リスト -->
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                @foreach($myCartStocks as $stock)
+                @foreach($myCartStocks as $cart)
                     <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
                         <!-- 商品名と価格 -->
-                        <h2 class="mb-2 text-lg font-semibold text-gray-800">{{ $stock->stock->name }}</h2>
-                        <p class="mb-4 text-xl font-bold text-gray-800">{{ number_format($stock->stock->fee) }}円</p>
+                        <h2 class="mb-2 text-lg font-semibold text-gray-800">{{ $cart->stock->name }}</h2>
+                        <p class="mb-2 text-xl font-bold text-gray-800">{{ number_format($cart->stock->fee) }}円</p>
                         
                         <!-- 商品画像 -->
                         <div class="flex justify-center mb-4">
-                            <img src="/image/{{ $stock->stock->imagePath }}" alt="{{ $stock->stock->name }}" class="h-auto rounded-lg shadow-md w-80">
+                            <img src="/image/{{ $cart->stock->imagePath }}" alt="{{ $cart->stock->name }}" class="h-auto rounded-lg shadow-md w-80">
                         </div>
+
+                        <!-- 個数表示と更新フォーム -->
+                        <form action="/updateMyCartStock" method="post" class="w-full mb-4">
+                            @csrf
+                            <input type="hidden" name="stockId" value="{{ $cart->stock->id }}">
+                            <label for="quantity-{{ $cart->stock->id }}" class="block mb-2 text-sm font-bold text-gray-700">個数:</label>
+                            <input 
+                                type="number" 
+                                id="quantity-{{ $cart->stock->id }}" 
+                                name="quantity" 
+                                value="{{ $cart->quantity }}" 
+                                min="1" 
+                                class="w-full px-3 py-1 text-center border border-gray-300 rounded">
+                            <button type="submit" class="w-full px-4 py-2 mt-2 font-bold text-white bg-green-500 rounded-lg hover:bg-green-700 focus:outline-none">
+                                個数を更新
+                            </button>
+                        </form>
 
                         <!-- カートから削除するフォーム -->
                         <form action="/deleteMyCartStock" method="post" class="w-full">
                             @csrf
-                            <input type="hidden" name="stockId" value="{{ $stock->stock->id }}">
+                            <input type="hidden" name="stockId" value="{{ $cart->stock->id }}">
                             <button type="submit" class="w-full px-4 py-2 font-bold text-white bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none">
                                 カートから削除する
                             </button>
@@ -43,7 +60,7 @@
                 <div class="mt-8 text-center">
                     <h2 class="text-xl font-bold text-gray-800">
                         合計金額: 
-                        <span class="text-green-600">{{ number_format($myCartStocks->sum(fn($item) => $item->stock->fee)) }}円</span>
+                        <span class="text-green-600">{{ number_format($myCartStocks->sum(fn($cart) => $cart->stock->fee * $cart->quantity)) }}円</span>
                     </h2>
                     <form action="/checkout" method="post" class="mt-4">
                         @csrf

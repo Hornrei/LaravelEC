@@ -21,18 +21,17 @@ class StockController extends Controller
         return view('myCart',compact('myCartStocks'));
     }
 
-    public function addMycart(Request $request,UserStock $userStock)
+    public function addMycart(Request $request, UserStock $userStock)
     {
+        // カートに追加の処理
+        $stockId = $request->stockId;
+        $quantity = $request->quantity; // 個数をリクエストから取得
+        $message = $userStock->addMyCart($stockId, $quantity); // 個数を渡す
 
-        //カートに追加の処理
-        $stockId=$request->stockId;
-        $message = $userStock->addMyCart($stockId);
-
-        //追加後の情報を取得
+        // 追加後の情報を取得
         $myCartStocks = $userStock->showMyCart();
 
-        return view('myCart',compact('myCartStocks' , 'message'));
-
+        return view('myCart', compact('myCartStocks', 'message'));
     }
 
     public function deleteMyCartStock(Request $request,UserStock $userStock)
