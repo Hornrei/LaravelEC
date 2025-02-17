@@ -22,7 +22,7 @@
                 <tr>
                     <td class="px-4 py-2 border">{{ $product->id }}</td>
                     <td class="px-4 py-2 border">{{ $product->name }}</td>
-                    <td class="px-4 py-2 border">{{ $product->price }}円</td>
+                    <td class="px-4 py-2 border">{{ $product->fee }}円</td>
                     <td class="px-4 py-2 border">{{ $product->stock }}</td>
                     <td class="px-4 py-2 border">
                         <a href="{{ route('admin.products.edit', $product) }}" class="text-blue-500">編集</a>
