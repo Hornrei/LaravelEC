@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+Route::post('/updateMyCartStock', [StockController::class, 'updateMyCartStock'])->name('stock.updateMyCartStock');
 Route::post('/deleteMyCartStock', [StockController::class, 'deleteMyCartStock'])->name('stock.deleteMyCartStock');
 
 Route::middleware('auth')->prefix('admin')->group(function () {

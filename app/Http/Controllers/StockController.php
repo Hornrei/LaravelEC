@@ -34,6 +34,19 @@ class StockController extends Controller
         return view('myCart', compact('myCartStocks', 'message'));
     }
 
+    public function updateMyCartStock(Request $request, UserStock $userStock)
+    {
+        // カートの更新処理
+        $stockId = $request->stockId;
+        $quantity = $request->quantity;
+        $message = $userStock->updateMyCartStock($stockId, $quantity);
+
+        // 更新後の情報を取得
+        $myCartStocks = $userStock->showMyCart();
+
+        return view('myCart', compact('myCartStocks', 'message'));
+    }
+
     public function deleteMyCartStock(Request $request,UserStock $userStock)
     {
 

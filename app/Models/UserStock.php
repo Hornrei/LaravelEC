@@ -46,6 +46,18 @@ class UserStock extends Model
         }
     }
 
+    public function updateMyCartStock($stockId, $quantity)
+    {
+        $userId = Auth::id();
+        $updateStockCount = $this->where('userId', $userId)->where('stockId', $stockId)->update(['quantity' => $quantity]);
+        
+        if ($updateStockCount > 0) {
+            $message = 'カートのアイテムの個数を更新しました';
+        } else {
+            $message = '更新に失敗しました';
+        }
+        return $message;
+    }
 
     public function deleteMyCartStock($stockId)
     {
@@ -59,6 +71,8 @@ class UserStock extends Model
         }
         return $message;
     }
+
+    
 
 
 }
