@@ -10,15 +10,15 @@
             </div>
             <div class="mb-3">
                 <label class="block font-bold">価格</label>
-                <input type="number" name="price" class="w-full p-2 border rounded" required>
+                <input type="number" name="fee" class="w-full p-2 border rounded" required>
             </div>
             <div class="mb-3">
                 <label class="block font-bold">在庫</label>
-                <input type="number" name="stock" class="w-full p-2 border rounded" required>
+                <input type="number" name="quantity" class="w-full p-2 border rounded" required>
             </div>
             <div class="mb-3">
                 <label class="block font-bold">説明</label>
-                <textarea name="description" class="w-full p-2 border rounded"></textarea>
+                <textarea name="explain" class="w-full p-2 border rounded"></textarea>
             </div>
             <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded">登録</button>
         </form>
