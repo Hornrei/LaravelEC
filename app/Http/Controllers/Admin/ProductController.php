@@ -34,7 +34,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'description' => 'nullable|string',
+            'explain' => 'nullable|string',
         ]);
 
         Stock::create($request->all());
@@ -67,7 +67,7 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'description' => 'nullable|string',
+            'explain' => 'nullable|string',
         ]);
 
         $product->update($request->all());
