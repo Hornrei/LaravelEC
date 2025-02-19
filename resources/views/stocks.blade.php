@@ -1,4 +1,6 @@
 <x-app-layout>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
     <div class="container-fluid">
         <div class="mx-auto" style="max-width:1200px">
             <h1 style="color:#555555; text-align:center; font-size:1.2em; padding:24px 0px; font-weight:bold;">商品一覧</h1>
@@ -34,7 +36,15 @@
                                 
                                 <!-- モーダルコンテンツ -->
                                 <h2 class="mb-4 text-lg font-bold text-center">{{$stock->name}}</h2>
-                                <img src="/image/{{$stock->imagePath}}" alt="" class="w-full mb-4 rounded">
+                                <model-viewer 
+                                    src="/models/{{$stock->modelPath}}" 
+                                    alt="{{$stock->name}}" 
+                                    auto-rotate 
+                                    rotation-per-second="60deg"
+                                    camera-controls  
+                                    class="w-full h-64">    
+                                </model-viewer>
+
                                 <p class="mb-4 text-gray-700">{{$stock->explain}}</p>
                                 <p class="mb-4 font-bold text-center text-gray-800">{{$stock->fee}}円</p>
 

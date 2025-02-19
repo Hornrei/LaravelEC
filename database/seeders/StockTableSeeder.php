@@ -21,6 +21,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 84200,
                 'quantity' => 3,
                 'imagePath' => 'mobile.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => 'フィルムカメラ',
@@ -28,6 +29,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 200000,
                 'quantity' => 3,
                 'imagePath' => 'filmcamera.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => 'イヤホン',
@@ -35,6 +37,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 20000,
                 'quantity' => 3,
                 'imagePath' => 'iyahon.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => '時計',
@@ -42,6 +45,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 120000,
                 'quantity' => 3,
                 'imagePath' => 'clock.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => '地球儀',
@@ -49,6 +53,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 120000,
                 'quantity' => 3,
                 'imagePath' => 'earth.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => '腕時計',
@@ -56,6 +61,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 9800,
                 'quantity' => 3,
                 'imagePath' => 'watch.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => 'カメラレンズ35mm',
@@ -63,6 +69,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 79800,
                 'quantity' => 3,
                 'imagePath' => 'lens.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => 'シャンパン',
@@ -70,6 +77,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 800,
                 'quantity' => 3,
                 'imagePath' => 'shanpan.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => 'ビール',
@@ -77,6 +85,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 200,
                 'quantity' => 3,
                 'imagePath' => 'beer.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => 'やかん',
@@ -84,6 +93,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 1200,
                 'quantity' => 3,
                 'imagePath' => 'yakan.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => 'パソコン',
@@ -91,6 +101,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 11200,
                 'quantity' => 3,
                 'imagePath' => 'pc.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => '精米',
@@ -98,6 +109,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 11200,
                 'quantity' => 3,
                 'imagePath' => 'kome.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => 'アコースティックギター',
@@ -105,6 +117,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 25600,
                 'quantity' => 3,
                 'imagePath' => 'aguiter.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => 'エレキギター',
@@ -112,6 +125,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 15600,
                 'quantity' => 3,
                 'imagePath' => 'eguiter.jpg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => '加湿器',
@@ -119,6 +133,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 3200,
                 'quantity' => 3,
                 'imagePath' => 'steamer.jpeg',
+                'modelPath' => 'oak_planks.glb',
             ],
             [
                 'name' => 'マウス',
@@ -126,6 +141,7 @@ class StockTableSeeder extends Seeder
                 'fee' => 4200,
                 'quantity' => 3,
                 'imagePath' => 'mouse.jpeg',
+                'modelPath' => 'oak_planks.glb',
             ],
         ];
 
