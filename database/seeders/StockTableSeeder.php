@@ -16,6 +16,23 @@ class StockTableSeeder extends Seeder
         
         $stocks = [
             [
+                'name' => 'オークの板材',
+                'explain' => 'オークの木からとれる板材。どこにでも生えている',
+                'fee' => 250,
+                'quantity' => 4,
+                'imagePath' => 'Oak_Planks.webp',
+                'modelPath' => 'oak_planks.glb',
+            ],
+
+            [
+                'name' => '桜の板材',
+                'explain' => '桜の木からとれる板材。桜バイオームでのみ生息',
+                'fee' => 400,
+                'quantity' => 4,
+                'imagePath' => 'Cherry_Planks.webp',
+                'modelPath' => 'cherry_planks.glb',
+            ],
+            [
                 'name' => 'Android Garxy10',
                 'explain' => '中古美品です',
                 'fee' => 84200,

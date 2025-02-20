@@ -10,7 +10,7 @@
                         <div class="p-6 text-sm text-center bg-white rounded shadow-lg mycart_box">
                             {{$stock->name}} <br>
                             {{$stock->fee}}円<br>
-                            <img src="/image/{{$stock->imagePath}}" alt="" class="incart">
+                            <img src="/image/{{$stock->imagePath}}" alt="" class="incart w-4/5 m-auto">
                             <br>
                             {{$stock->explain}} <br>
 
