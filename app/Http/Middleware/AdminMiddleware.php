@@ -10,15 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
+
     public function handle(Request $request, Closure $next)
     {
         if (!Auth::check() || !Auth::user()->is_admin) {
-            // abort(403,'管理者のみアクセス可能です');
+            abort(403,'管理者のみアクセス可能です');
             // return redirect()->route('stocks.index');
         }
         return $next($request);
