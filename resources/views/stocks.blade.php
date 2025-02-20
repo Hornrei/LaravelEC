@@ -2,6 +2,7 @@
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
     <div class="container-fluid">
+
         <div class="mx-auto" style="max-width:1200px">
             <h1 style="color:#555555; text-align:center; font-size:1.2em; padding:24px 0px; font-weight:bold;">商品一覧</h1>
             <div class="">
@@ -26,7 +27,7 @@
                             <img src="/image/{{$stock->imagePath}}" alt="" class="incart w-4/5 m-auto">
                             <br>
                             {{$stock->explain}} <br>
-                            タグ:
+                            
                             @foreach ($stock->tags as $tag)
                                 <span class="bg-gray-200 text-gray-800 px-2 py-1 rounded">{{ $tag->name }}</span>
                             @endforeach
@@ -64,9 +65,9 @@
 
                                 <p class="mb-4 text-gray-700">{{$stock->explain}}</p>
                                 <p class="mb-4 font-bold text-center text-gray-800">{{$stock->fee}}円</p>
-                                タグ:
+                                <!-- タグ -->
                                 @foreach ($stock->tags as $tag)
-                                    <span class="bg-gray-200 text-gray-800 px-2 py-1 rounded">{{ $tag->name }}</span>
+                                    <span class="bg-gray-200 text-gray-800 px-2 py-1 rounded ">{{ $tag->name }}</span>
                                 @endforeach
                                 <!-- カートに入れるフォーム -->
                                 <form action="addMyCart" method="post">

@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('stock.index') }}">
-                        <img src="{{ asset('image/logo.png') }}" alt="logo" class="h-8 w-auto">
+                        <img src="{{ asset('image/logo.png') }}" alt="logo" class="h-10 w-auto">
                     </a>
                 </div>
 
@@ -18,7 +18,7 @@
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('stock.myCart')" :active="request()->routeIs('stock.myCart')">
-                        MyCart
+                        <img src="{{ asset('image/cartlogo.png') }}" alt="cart" class="h-6 w-auto">
                     </x-nav-link>
                 </div>
             </div>
