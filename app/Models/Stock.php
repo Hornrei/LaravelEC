@@ -9,4 +9,9 @@ class Stock extends Model
    protected $guarded = [
      'id'
    ];
+
+    public function tags()
+    {
+      return $this->belongsToMany(Tag::class);
+    }
 }

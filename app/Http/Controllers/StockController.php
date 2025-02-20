@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Stock;
 use App\Models\UserStock;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        $query = Stock::query();
+        if($request->tag){
+            $query->whereHas('tags',function($query) use ($request){
+                $query->where('name',$request->tag);
+            });
+        }
             // 1ページ6個の在庫情報を取得
         $stocks = Stock::SimplePaginate(6);
-        return view('stocks',compact('stocks'));
+        $tags = Tag::all();
+        return view('stocks',compact('stocks','tags'));
     }
 
     public function myCart(UserStock $userStock)
@@ -60,6 +68,8 @@ class StockController extends Controller
         return view('myCart',compact('myCartStocks' , 'message'));
 
     }
+
+
 
 
 

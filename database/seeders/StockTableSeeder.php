@@ -2,166 +2,72 @@
 
 namespace Database\Seeders;
 
+use App\Models\Stock;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 class StockTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        DB::table('stocks')->truncate(); //2回目実行の際に一旦テーブル情報をクリア
+        DB::table('stock_tag')->delete(); // 中間テーブルを先に削除
+        DB::table('stocks')->delete();
+        DB::table('tags')->delete();
         
-        $stocks = [
-            [
-                'name' => 'オークの板材',
-                'explain' => 'オークの木からとれる板材。どこにでも生えている',
-                'fee' => 250,
-                'quantity' => 4,
-                'imagePath' => 'Oak_Planks.webp',
-                'modelPath' => 'oak_planks.glb',
-            ],
-
-            [
-                'name' => '桜の板材',
-                'explain' => '桜の木からとれる板材。桜バイオームでのみ生息',
-                'fee' => 400,
-                'quantity' => 4,
-                'imagePath' => 'Cherry_Planks.webp',
-                'modelPath' => 'cherry_planks.glb',
-            ],
-            [
-                'name' => 'Android Garxy10',
-                'explain' => '中古美品です',
-                'fee' => 84200,
-                'quantity' => 3,
-                'imagePath' => 'mobile.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => 'フィルムカメラ',
-                'explain' => '1960年式のカメラです',
-                'fee' => 200000,
-                'quantity' => 3,
-                'imagePath' => 'filmcamera.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => 'イヤホン',
-                'explain' => 'ノイズキャンセリングがついてます',
-                'fee' => 20000,
-                'quantity' => 3,
-                'imagePath' => 'iyahon.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => '時計',
-                'explain' => '1980年式の掛け時計です',
-                'fee' => 120000,
-                'quantity' => 3,
-                'imagePath' => 'clock.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => '地球儀',
-                'explain' => '珍しい商品です',
-                'fee' => 120000,
-                'quantity' => 3,
-                'imagePath' => 'earth.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => '腕時計',
-                'explain' => 'プレゼントにどうぞ',
-                'fee' => 9800,
-                'quantity' => 3,
-                'imagePath' => 'watch.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => 'カメラレンズ35mm',
-                'explain' => '最新式です',
-                'fee' => 79800,
-                'quantity' => 3,
-                'imagePath' => 'lens.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => 'シャンパン',
-                'explain' => 'パーティにどうぞ',
-                'fee' => 800,
-                'quantity' => 3,
-                'imagePath' => 'shanpan.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => 'ビール',
-                'explain' => '大量生産されたビールです',
-                'fee' => 200,
-                'quantity' => 3,
-                'imagePath' => 'beer.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => 'やかん',
-                'explain' => 'かなり珍しいやかんです',
-                'fee' => 1200,
-                'quantity' => 3,
-                'imagePath' => 'yakan.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => 'パソコン',
-                'explain' => 'ジャンク品です',
-                'fee' => 11200,
-                'quantity' => 3,
-                'imagePath' => 'pc.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => '精米',
-                'explain' => '米30Kgです',
-                'fee' => 11200,
-                'quantity' => 3,
-                'imagePath' => 'kome.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => 'アコースティックギター',
-                'explain' => 'ヤマハ製のエントリーモデルです',
-                'fee' => 25600,
-                'quantity' => 3,
-                'imagePath' => 'aguiter.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => 'エレキギター',
-                'explain' => '初心者向けのエントリーモデルです',
-                'fee' => 15600,
-                'quantity' => 3,
-                'imagePath' => 'eguiter.jpg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => '加湿器',
-                'explain' => '乾燥する季節の必需品',
-                'fee' => 3200,
-                'quantity' => 3,
-                'imagePath' => 'steamer.jpeg',
-                'modelPath' => 'oak_planks.glb',
-            ],
-            [
-                'name' => 'マウス',
-                'explain' => 'ゲーミングマウスです',
-                'fee' => 4200,
-                'quantity' => 3,
-                'imagePath' => 'mouse.jpeg',
-                'modelPath' => 'oak_planks.glb',
-            ],
+        // タグの定義
+        $tags = [
+            '鉱石' => Tag::create(['name' => '鉱石']),
+            '木材' => Tag::create(['name' => '木材']),
+            'その他' => Tag::create(['name' => 'その他']),
+            '石'   => Tag::create(['name' => '石']),
         ];
 
-        DB::table('stocks')->insert($stocks);
+        // 商品データ
+        $stocks = [
+            // 鉱石
+            ['name' => '石炭鉱石', 'explain' => '燃料として使用できる一般的な鉱石。', 'fee' => 100, 'quantity' => 64, 'imagePath' => 'Coal_Ore.webp', 'modelPath' => 'coal_ore.glb', 'tags' => ['鉱石']],
+            ['name' => '銅鉱石', 'explain' => '装飾ブロックや雷避けの材料。', 'fee' => 150, 'quantity' => 64, 'imagePath' => 'Copper_Ore.webp', 'modelPath' => 'copper_ore.glb', 'tags' => ['鉱石']],
+            ['name' => '鉄鉱石', 'explain' => '道具や装備の材料として不可欠。', 'fee' => 250, 'quantity' => 64, 'imagePath' => 'Iron_Ore.webp', 'modelPath' => 'iron_ore.glb', 'tags' => ['鉱石']],
+            ['name' => '金鉱石', 'explain' => '柔らかく加工しやすいが耐久性が低い。', 'fee' => 500, 'quantity' => 64, 'imagePath' => 'Gold_Ore.webp', 'modelPath' => 'gold_ore.glb', 'tags' => ['鉱石']],
+            ['name' => 'ラピスラズリ鉱石', 'explain' => 'エンチャントや染料に使用される貴重な鉱石。', 'fee' => 400, 'quantity' => 64, 'imagePath' => 'Lapis_Ore.webp', 'modelPath' => 'lapis_ore.glb', 'tags' => ['鉱石']],
+            ['name' => 'ダイヤモンド鉱石', 'explain' => '最強の道具や防具を作成できる高価な鉱石。', 'fee' => 1000, 'quantity' => 64, 'imagePath' => 'Diamond_Ore.webp', 'modelPath' => 'diamond_ore.glb', 'tags' => ['鉱石']],
+            ['name' => 'エメラルド鉱石', 'explain' => '村人との取引に使用できる希少な鉱石。', 'fee' => 800, 'quantity' => 64, 'imagePath' => 'Emerald_Ore.webp', 'modelPath' => 'emerald_ore.glb', 'tags' => ['鉱石']],
+        
+            // 木材
+            ['name' => 'シラカバの木材', 'explain' => '白くて明るい色の建築用木材。', 'fee' => 250, 'quantity' => 64, 'imagePath' => 'Birch_Planks.webp', 'modelPath' => 'birch_planks.glb', 'tags' => ['木材']],
+            ['name' => 'オークの木材', 'explain' => '標準的で使いやすい木材。', 'fee' => 250, 'quantity' => 64, 'imagePath' => 'Oak_Planks.webp', 'modelPath' => 'oak_planks.glb', 'tags' => ['木材']],
+            ['name' => 'サクラの木材', 'explain' => 'ピンク色の可愛らしい木材。', 'fee' => 400, 'quantity' => 64, 'imagePath' => 'Cherry_Planks.webp', 'modelPath' => 'cherry_planks.glb', 'tags' => ['木材']],
+            ['name' => 'アカシアの木材', 'explain' => 'オレンジがかった独特な木材。', 'fee' => 300, 'quantity' => 64, 'imagePath' => 'Acacia_Planks.webp', 'modelPath' => 'acacia_planks.glb', 'tags' => ['木材']],
+            ['name' => 'ジャングルの木材', 'explain' => '熱帯で見つかる濃い色の木材。', 'fee' => 300, 'quantity' => 64, 'imagePath' => 'Jungle_Planks.webp', 'modelPath' => 'jungle_planks.glb', 'tags' => ['木材']],
+        
+            // その他
+            ['name' => '氷', 'explain' => '滑りやすく溶ける特性を持つブロック。', 'fee' => 200, 'quantity' => 16, 'imagePath' => 'Ice.webp', 'modelPath' => 'ice.glb', 'tags' => ['その他']],
+            ['name' => '雪', 'explain' => '雪玉を作ることができる冷たいブロック。', 'fee' => 150, 'quantity' => 64, 'imagePath' => 'Snow.webp', 'modelPath' => 'snow.glb', 'tags' => ['その他']],
+            ['name' => '土', 'explain' => '最も一般的な地面のブロック。', 'fee' => 50, 'quantity' => 64, 'imagePath' => 'Dirt.webp', 'modelPath' => 'dirt.glb', 'tags' => ['その他']],
+            ['name' => '草ブロック', 'explain' => '上面に草が生えた装飾用ブロック。', 'fee' => 100, 'quantity' => 64, 'imagePath' => 'Grass_Block.webp', 'modelPath' => 'grass_block.glb', 'tags' => ['その他']],
+        
+            // 石
+            ['name' => '石', 'explain' => '建築や道具の作成に使える基本ブロック。', 'fee' => 100, 'quantity' => 64, 'imagePath' => 'Stone.webp', 'modelPath' => 'stone.glb', 'tags' => ['石']],
+            ['name' => '花崗岩', 'explain' => '装飾用の赤みがかった石材。', 'fee' => 150, 'quantity' => 64, 'imagePath' => 'Granite.webp', 'modelPath' => 'granite.glb', 'tags' => ['石']],
+            ['name' => '苔石', 'explain' => '苔の生えたクラシックな丸石。', 'fee' => 200, 'quantity' => 64, 'imagePath' => 'Mossy_Cobblestone.webp', 'modelPath' => 'mossy_cobblestone.glb', 'tags' => ['石']],
+            ['name' => '黒曜石', 'explain' => 'ネザーポータルの作成に使う超硬いブロック。', 'fee' => 750, 'quantity' => 16, 'imagePath' => 'Obsidian.webp', 'modelPath' => 'obsidian.glb', 'tags' => ['石']],
+        ];
+       // 商品をDBに挿入し、タグを関連付ける
+       foreach ($stocks as $stockData) {
+        $stock = Stock::create([
+            'name' => $stockData['name'],
+            'explain' => $stockData['explain'],
+            'fee' => $stockData['fee'],
+            'quantity' => $stockData['quantity'],
+            'imagePath' => $stockData['imagePath'],
+            'modelPath' => $stockData['modelPath'],
+        ]);
+
+            // タグを関連付ける
+            foreach ($stockData['tags'] as $tagName) {
+                $stock->tags()->attach($tags[$tagName]->id);
+            }
+        }
     }
 }

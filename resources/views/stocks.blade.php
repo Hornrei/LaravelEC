@@ -5,6 +5,19 @@
         <div class="mx-auto" style="max-width:1200px">
             <h1 style="color:#555555; text-align:center; font-size:1.2em; padding:24px 0px; font-weight:bold;">商品一覧</h1>
             <div class="">
+            <div class="mb-4">
+                <form method="GET" action="{{ route('stock.index') }}">
+                    <select name="tag" onchange="this.form.submit()" class="border rounded p-2">
+                        <option value="">すべてのタグ</option>
+                        @foreach ($tags as $tag)
+                            <option value="{{ $tag->name }}" {{ request('tag') == $tag->name ? 'selected' : '' }}>
+                                {{ $tag->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
+            </div>
+
                 <div class="grid flex-wrap grid-cols-4 gap-4">
                     @foreach($stocks as $stock)
                         <div class="p-6 text-sm text-center bg-white rounded shadow-lg mycart_box">
@@ -13,6 +26,10 @@
                             <img src="/image/{{$stock->imagePath}}" alt="" class="incart w-4/5 m-auto">
                             <br>
                             {{$stock->explain}} <br>
+                            タグ:
+                            @foreach ($stock->tags as $tag)
+                                <span class="bg-gray-200 text-gray-800 px-2 py-1 rounded">{{ $tag->name }}</span>
+                            @endforeach
 
                             <!-- 詳細を見るボタン -->
                             <button 
@@ -47,7 +64,10 @@
 
                                 <p class="mb-4 text-gray-700">{{$stock->explain}}</p>
                                 <p class="mb-4 font-bold text-center text-gray-800">{{$stock->fee}}円</p>
-
+                                タグ:
+                                @foreach ($stock->tags as $tag)
+                                    <span class="bg-gray-200 text-gray-800 px-2 py-1 rounded">{{ $tag->name }}</span>
+                                @endforeach
                                 <!-- カートに入れるフォーム -->
                                 <form action="addMyCart" method="post">
                                     @csrf
