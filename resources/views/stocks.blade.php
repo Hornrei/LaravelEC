@@ -1,28 +1,50 @@
 <x-app-layout>
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
-    <div class="container-fluid">
+    <style>
+        @font-face {
+            font-family: 'Maikura';
+            src: url('/font/maikura.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
 
+        /* 背景画像の設定 */
+        .container-fluid {
+            background-image: url('/image/backimg.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* フォントを全体に適用 */
+        /* * {
+            font-family: 'Maikura', sans-serif;
+        } */
+    </style>
+
+    <div class="container-fluid">
+        <!-- 以下のコードはそのまま -->
         <div class="mx-auto" style="max-width:1200px">
-            <h1 style="color:#555555; text-align:center; font-size:1.2em; padding:24px 0px; font-weight:bold;">商品一覧</h1>
+            <h1 style="color:#555555; text-align:center; font-size:2em; padding:24px 0px; font-weight:bold; font-family: 'Maikura', sans-serif; letter-spacing:1em;">商品一覧</h1>
             <div class="">
-            <div class="mb-4">
-                <form method="GET" action="{{ route('stock.index') }}">
-                    <select name="tag" onchange="this.form.submit()" class="border rounded p-2 w-20">
-                        <option value="">すべて</option>
-                        @foreach ($tags as $tag)
-                            <option value="{{ $tag->name }}" {{ request('tag') == $tag->name ? 'selected' : '' }}>
-                                {{ $tag->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </form>
-            </div>
+                <div class="mb-4">
+                    <form method="GET" action="{{ route('stock.index') }}">
+                        <select name="tag" onchange="this.form.submit()" class="border rounded p-2 w-20">
+                            <option value="">すべて</option>
+                            @foreach ($tags as $tag)
+                                <option value="{{ $tag->name }}" {{ request('tag') == $tag->name ? 'selected' : '' }}>
+                                    {{ $tag->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
 
                 <div class="grid flex-wrap grid-cols-4 gap-4">
                     @foreach($stocks as $stock)
                         <div class="p-6 text-sm text-center bg-white rounded shadow-lg mycart_box">
-                            {{$stock->name}} <br>
+                        <span style="font-family: 'Maikura', sans-serif; font-size: 1.5em;">{{$stock->name}}</span> <br>
+
                             {{$stock->fee}}円<br>
                             <img src="/image/{{$stock->imagePath}}" alt="" class="incart w-4/5 m-auto">
                             <br>

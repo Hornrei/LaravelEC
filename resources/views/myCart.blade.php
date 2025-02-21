@@ -1,7 +1,25 @@
 <x-app-layout>
-    <div class="container-fluid">
+    <style>
+        @font-face {
+            font-family: 'Maikura';
+            src: url('/font/maikura.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 背景画像の設定 */
+        .container-fluid {
+            background-image: url('/image/backimg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+
+    </style>
+    <div class="container-fluid h-screen">
         <div class="mx-auto" style="max-width:1200px">
-            <h1 class="py-6 text-xl font-bold text-center text-gray-800">
+            <h1 class="py-6 text-xl font-bold text-center text-gray-800" style="font-family: 'Maikura', sans-serif; letter-spacing:0.8em;">
                 {{ Auth::user()->name }}さんのカートの中身
             </h1>
             
@@ -13,6 +31,7 @@
                 @foreach($myCartStocks as $cart)
                     <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg">
                         <!-- 商品名と価格 -->
+                         <!-- <p>{{ $cart }}</p> -->
                         <h2 class="mb-2 text-lg font-semibold text-gray-800">{{ $cart->stock->name }}</h2>
                         <p class="mb-2 text-xl font-bold text-gray-800">{{ number_format($cart->stock->fee) }}円</p>
                         

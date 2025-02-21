@@ -27,6 +27,7 @@ class StockController extends Controller
     public function myCart(UserStock $userStock)
     {
         $myCartStocks = $userStock->showMyCart();
+        // dd($myCartStocks[0]->stock->name);
         return view('myCart',compact('myCartStocks'));
     }
 
