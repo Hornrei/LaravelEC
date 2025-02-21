@@ -30,17 +30,32 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'fee' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
-            'explain' => 'nullable|string',
-        ]);
+        // バリデーションの前に画像がアップロードされているかを確認
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            
+            // ユニークなファイル名を生成
+            $imageName = time() . '_' . $file->getClientOriginalName();
 
-        Stock::create($request->all());
+            // 画像を public/image フォルダに保存
+            $file->move(public_path('image'), $imageName);
 
-        return redirect()->route('admin.products.index')->with('success', '商品を登録しました');
+            // 商品を登録   
+            Stock::create([
+                'name' => $request->name,
+                'fee' => $request->fee,
+                'quantity' => $request->quantity,
+                'explain' => $request->explain,
+                'imagePath' => $imageName,  // DBには画像の相対パスを保存
+            ]);
+            
+            return redirect()->route('admin.products.index')->with('success', '商品を登録しました');
+        } else {
+            return redirect()->back()->withErrors(['image' => '画像がアップロードされていません']);
+        }
     }
+
+
 
     /**
      * 商品詳細ページ（省略可能）
