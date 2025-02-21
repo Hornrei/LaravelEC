@@ -8,8 +8,8 @@
             <div class="">
             <div class="mb-4">
                 <form method="GET" action="{{ route('stock.index') }}">
-                    <select name="tag" onchange="this.form.submit()" class="border rounded p-2">
-                        <option value="">すべてのタグ</option>
+                    <select name="tag" onchange="this.form.submit()" class="border rounded p-2 w-20">
+                        <option value="">すべて</option>
                         @foreach ($tags as $tag)
                             <option value="{{ $tag->name }}" {{ request('tag') == $tag->name ? 'selected' : '' }}>
                                 {{ $tag->name }}

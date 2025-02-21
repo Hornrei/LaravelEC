@@ -13,12 +13,13 @@ class StockController extends Controller
     public function index(Request $request){
         $query = Stock::query();
         if($request->tag){
+            
             $query->whereHas('tags',function($query) use ($request){
                 $query->where('name',$request->tag);
             });
         }
             // 1ページ6個の在庫情報を取得
-        $stocks = Stock::SimplePaginate(6);
+        $stocks = $query->simplePaginate(6);
         $tags = Tag::all();
         return view('stocks',compact('stocks','tags'));
     }
