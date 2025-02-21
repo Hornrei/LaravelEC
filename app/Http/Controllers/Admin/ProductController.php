@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Stock;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -38,7 +39,7 @@ class ProductController extends Controller
         } else {
             return redirect()->back()->withErrors(['image' => '画像がアップロードされていません']);
         }
-
+    
         // モデルファイルのアップロード処理
         if ($request->hasFile('model')) {
             $modelFile = $request->file('model');
@@ -47,9 +48,9 @@ class ProductController extends Controller
         } else {
             $modelName = null; // モデルがない場合
         }
-
+    
         // 商品を登録
-        Stock::create([
+        $stock = Stock::create([
             'name' => $request->name,
             'fee' => $request->fee,
             'quantity' => $request->quantity,
@@ -57,9 +58,22 @@ class ProductController extends Controller
             'imagePath' => $imageName,  // DBには画像の相対パスを保存
             'modelPath' => $modelName,  // DBにはモデルの相対パスを保存
         ]);
-
+    
+        // タグが選択されている場合は、タグを関連付ける
+        if ($request->has('tag') && $request->input('tag') !== '') {
+            // タグ名からタグIDを取得
+            $tag = Tag::where('name', $request->input('tag'))->first();
+            
+            // タグが存在する場合、関連付ける
+            if ($tag) {
+                $stock->tags()->attach($tag->id);
+            }
+        }
+    
         return redirect()->route('admin.products.index')->with('success', '商品を登録しました');
     }
+    
+
 
 
 

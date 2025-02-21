@@ -19,7 +19,18 @@
             <div class="mb-3">
                 <label class="block font-bold">説明</label>
                 <textarea name="explain" class="w-full p-2 border rounded"></textarea>
-            </div>  
+            </div>
+            <!-- タグ選択 -->
+            <div class="mb-3">
+                <label class="block font-bold">タグ</label>
+                <select name="tag" class="w-full p-2 border rounded" require>
+                    <option value="">タグを選択</option>
+                    <option value="石">石</option>
+                    <option value="鉱石">鉱石</option>
+                    <option value="木材">木材</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
             <div class="mb-3">
                 <label class="block font-bold">商品画像</label>
                 <input type="file" name="image" class="w-full p-2 border rounded">
