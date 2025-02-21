@@ -99,14 +99,54 @@ class ProductController extends Controller
      */
     public function update(Request $request, Stock $product)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'fee' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
-            'explain' => 'nullable|string',
+        // 画像の更新処理
+        if ($request->hasFile('image')) {
+            // 古い画像を削除
+            if (File::exists(public_path('image/' . $product->imagePath))) {
+                File::delete(public_path('image/' . $product->imagePath));
+            }
+
+            $file = $request->file('image');
+            $imageName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('image'), $imageName);
+        } else {
+            $imageName = $product->imagePath; // 画像が更新されない場合は元のまま
+        }
+
+        // モデルファイルの更新処理
+        if ($request->hasFile('model')) {
+            // 古いモデルを削除
+            if (File::exists(public_path('models/' . $product->modelPath))) {
+                File::delete(public_path('models/' . $product->modelPath));
+            }
+
+            $modelFile = $request->file('model');
+            $modelName = time() . '_' . $modelFile->getClientOriginalName();
+            $modelFile->move(public_path('models'), $modelName);
+        } else {
+            $modelName = $product->modelPath; // モデルが更新されない場合は元のまま
+        }
+
+        // 商品を更新
+        $product->update([
+            'name' => $request->name,
+            'fee' => $request->fee,
+            'quantity' => $request->quantity,
+            'explain' => $request->explain,
+            'imagePath' => $imageName,  // 更新された画像のパスを保存
+            'modelPath' => $modelName,  // 更新されたモデルのパスを保存
         ]);
 
-        $product->update($request->all());
+        // タグが選択されている場合は、タグを関連付ける
+        if ($request->has('tag') && $request->input('tag') !== '') {
+            // タグ名からタグIDを取得
+            $tag = Tag::where('name', $request->input('tag'))->first();
+
+            // タグが存在する場合、関連付ける
+            if ($tag) {
+                $product->tags()->sync([$tag->id]);  // タグの更新 (attach -> sync)
+            }
+        }
 
         return redirect()->route('admin.products.index')->with('success', '商品情報を更新しました');
     }
