@@ -19,7 +19,7 @@ class StockController extends Controller
             });
         }
             // 1ページ6個の在庫情報を取得
-        $stocks = $query->simplePaginate(6);
+        $stocks = $query->simplePaginate(8);
         $tags = Tag::all();
         return view('stocks',compact('stocks','tags'));
     }
