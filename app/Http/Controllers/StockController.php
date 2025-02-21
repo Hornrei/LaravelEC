@@ -70,6 +70,10 @@ class StockController extends Controller
 
     }
 
+    public function checkout(Request $request)
+    {
+        return view('checkout');
+    }
 
 
 

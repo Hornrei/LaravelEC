@@ -20,10 +20,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/checkout', [StockController::class, 'checkout'])->name('checkout.process');
 });
 
 Route::post('/updateMyCartStock', [StockController::class, 'updateMyCartStock'])->name('stock.updateMyCartStock');
 Route::post('/deleteMyCartStock', [StockController::class, 'deleteMyCartStock'])->name('stock.deleteMyCartStock');
+
 
 // Route::middleware('auth')->prefix('admin')->group(function () {
 Route::middleware('auth','admin')->prefix('admin')->group(function () {
